@@ -6,6 +6,7 @@ package com.igorcm.minhasfinancas.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -100,6 +101,12 @@ public class LancamentoServiceImpl implements LancamentoService{
 		if(lancamento.getTipoLancamento() == null) {
 			throw new RegraNegocioException("Informe um Tipo de lançamento");
 		}
+	}
+
+
+	@Override
+	public Optional<Lancamento> findById(Long id) {
+		return this.lancamentoRepository.findById(id);
 	}
 
 }

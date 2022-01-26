@@ -15,16 +15,18 @@ import com.igorcm.minhasfinancas.api.dto.UsuarioDTO;
 import com.igorcm.minhasfinancas.model.entity.Usuario;
 import com.igorcm.minhasfinancas.service.UsuarioService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author <a href="coronaigor@gmail.com">Igor Corona de Matos</a>
  *
  */
 @RestController
 @RequestMapping("/api/usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
 
-	@Autowired
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 
 	@PostMapping("/autenticar")
 	public ResponseEntity autenticar(@RequestBody UsuarioDTO dto) {

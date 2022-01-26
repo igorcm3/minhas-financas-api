@@ -4,6 +4,7 @@
 package com.igorcm.minhasfinancas.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.igorcm.minhasfinancas.model.entity.Lancamento;
 import com.igorcm.minhasfinancas.model.enums.StatusLancamento;
@@ -25,4 +26,6 @@ public interface LancamentoService {
 	void atualizarStatus(Lancamento lancamento, StatusLancamento status);
 	
 	void validar(Lancamento lancamento);
+
+	Optional<Lancamento> findById(Long id);
 }
