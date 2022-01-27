@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.igorcm.minhasfinancas.api.dto.AtualizaStatusDTO;
 import com.igorcm.minhasfinancas.api.dto.LancamentoDTO;
 import com.igorcm.minhasfinancas.exception.RegraNegocioException;
 import com.igorcm.minhasfinancas.model.entity.Lancamento;
@@ -101,6 +102,24 @@ public class LancamentoController {
 		
 		return ResponseEntity.ok(lancamentos);
 				
+	}
+	
+	@PutMapping("{id}/atualiza-status")
+	public ResponseEntity atualizarStatus(@PathVariable("id") Long id, @RequestBody AtualizaStatusDTO dto) {
+		return lancamentoService.findById(id).map( entity -> {
+			try {
+				StatusLancamento statusSelecionado =  StatusLancamento.valueOf(dto.getStatus());
+				if(statusSelecionado == null) {
+					return ResponseEntity.badRequest().body("Não foi possível atualizar o status do lançamento, envie um status valido.");
+				}
+				entity.setStatusLancamento(statusSelecionado);
+				this.lancamentoService.atualizar(entity);
+				return ResponseEntity.ok(entity);				
+			} catch (Exception e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+
+		}).orElseGet(() -> new ResponseEntity("Lançamento não encontrado na base de dados.", HttpStatus.BAD_REQUEST));
 	}
 
 	private Lancamento converter(final LancamentoDTO dto) {

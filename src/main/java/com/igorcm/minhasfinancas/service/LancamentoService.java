@@ -3,6 +3,7 @@
  */
 package com.igorcm.minhasfinancas.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +29,6 @@ public interface LancamentoService {
 	void validar(Lancamento lancamento);
 
 	Optional<Lancamento> findById(Long id);
+	
+	BigDecimal getSaldoByUsuario(Long idUsuario);
 }
